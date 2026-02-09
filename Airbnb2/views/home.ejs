@@ -1,0 +1,19 @@
+<%- include('partials/head') %>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+  <%- include('partials/nav') %>
+  <main class="max-w-3xl mx-auto py-12 px-4">
+    <h1 class="text-3xl font-semibold mb-6">Welcome to Airbnb!</h1>
+    
+    <ul class="space-y-3">
+      <% registeredHomes.forEach((home)=>{ %>
+        <li class="bg-white shadow-sm rounded-lg p-4 flex justify-between items-center">
+          <span class="font-medium"><%= home.homename %></span>
+          <span class="text-gray-500"><%= home.amount %></span>
+        </li>
+      <% }) %>
+    </ul>
+  </main>
+</body>
+</html>
