@@ -1,4 +1,6 @@
-const home=require('../models/home');
+//const home=require('../models/home');
+const path = require('path');
+const home = require(path.join(__dirname, '..', 'models', 'home'));
 
 exports.getaddhome=(req,res,next)=>{
   res.render('add-home',{pagetitle : 'Add Home'});
