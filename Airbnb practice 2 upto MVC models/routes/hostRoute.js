@@ -1,18 +1,10 @@
 const express=require('express');
+const controller=require('../controllers/host');
 
 const hostRouter=express.Router();
 
-hostRouter.get('/host/add-home',(req,res,next)=>{
-  res.render('add-home',{pagetitle : 'Add Home'});
-});
+hostRouter.get('/host/add-home',controller.getaddhome);
 
-const registeredhomes=[];
-hostRouter.post('/host/add-home',(req,res,next)=>{
-  res.render('home-added',{pagetitle : 'Home Added'});
-  console.log(req.body);
-  registeredhomes.push(req.body);
-  console.log(registeredhomes);
-});
+hostRouter.post('/host/add-home',controller.postaddhome);
 
 exports.hostRouter=hostRouter;
-exports.registeredhomes=registeredhomes;

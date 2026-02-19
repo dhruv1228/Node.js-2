@@ -1,18 +1,59 @@
 <%- include('partials/head.ejs') %>
+<!-- Tailwind Play CDN (quick add for development) -->
+<script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-800">
   <%- include('partials/nav.ejs') %>
-  <main>
-    <h1>
-      Welcome to Airbnb
-    </h1>
-    <h3>
-      Here you can choose your comfort stay!
-    </h3>
-    <ul><% registeredhomes.forEach((home)=>{ %>
-      <li><%= home.homename, home.city, home.price, home.rating %></li>
-    <% }) %>
-    </ul>
+  <main class="max-w-6xl mx-auto px-4 py-10">
+    <header class="mb-8 text-center">
+      <h1 class="text-4xl font-extrabold">Welcome to Airbnb</h1>
+      <p class="mt-2 text-lg text-gray-600">Here you can choose your comfort stay!</p>
+    </header>
+
+    <!-- Grid of cards -->
+    <section class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <% registeredhomes.forEach((home) => { %>
+      <article class="relative rounded-xl overflow-hidden bg-white shadow hover:shadow-lg transition-shadow duration-200">
+        <!-- optional image area (use a placeholder if you don't have an image URL) -->
+        <div class="h-40 bg-gray-200 flex items-center justify-center">
+          <% if (home.imageUrl) { %>
+            <img src="<%= home.imageUrl %>" alt="<%= home.homename %>" class="w-full h-40 object-cover">
+          <% } else { %>
+            <span class="text-gray-400">No image</span>
+          <% } %>
+        </div>
+
+        <div class="p-4">
+          <h2 class="text-xl font-semibold truncate"><%= home.homename %></h2>
+          <p class="text-sm text-gray-500 mt-1"><%= home.city %></p>
+
+          <div class="mt-4 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="inline-flex items-center px-2 py-1 rounded-md bg-green-100 text-green-800 text-sm font-medium">
+                $<%= home.price %>/night
+              </span>
+              <span class="inline-flex items-center text-sm text-yellow-600">
+                <!-- simple star icon -->
+                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.955a1 1 0 00.95.69h4.162c.969 0 1.372 1.24.588 1.81l-3.37 2.45a1 1 0 00-.364 1.118l1.287 3.955c.3.921-.755 1.688-1.54 1.118l-3.37-2.45a1 1 0 00-1.176 0l-3.37 2.45c-.785.57-1.84-.197-1.54-1.118l1.287-3.955a1 1 0 00-.364-1.118L2.063 9.382c-.784-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.955z"/>
+                </svg>
+                <span><%= home.rating %></span>
+              </span>
+            </div>
+
+            <a href="/homes/<%= home._id %>" class="inline-flex items-center px-3 py-1.5 bg-indigo-600 text-white text-sm rounded-md hover:bg-indigo-700 transition">
+              View
+            </a>
+          </div>
+        </div>
+      </article>
+      <% }) %>
+    </section>
+
+    <!-- fallback when no homes -->
+    <% if (!registeredhomes || registeredhomes.length === 0) { %>
+      <p class="mt-8 text-center text-gray-500">No homes found.</p>
+    <% } %>
   </main>
 </body>
-</html>
+</html></div>
