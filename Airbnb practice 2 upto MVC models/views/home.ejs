@@ -1,0 +1,18 @@
+<%- include('partials/head.ejs') %>
+</head>
+<body>
+  <%- include('partials/nav.ejs') %>
+  <main>
+    <h1>
+      Welcome to Airbnb
+    </h1>
+    <h3>
+      Here you can choose your comfort stay!
+    </h3>
+    <ul><% registeredhomes.forEach((home)=>{ %>
+      <li><%= home.homename, home.city, home.price, home.rating %></li>
+    <% }) %>
+    </ul>
+  </main>
+</body>
+</html>

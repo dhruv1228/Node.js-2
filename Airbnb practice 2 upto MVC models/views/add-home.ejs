@@ -1,0 +1,28 @@
+<%- include('partials/head.ejs') %>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+  <%- include('partials/nav.ejs') %>
+  <main class="flex-grow container mx-auto p-6">
+    <div class="max-w-lg mx-auto bg-white rounded-lg shadow-md p-6">
+      <h1 class="text-2xl font-semibold mb-4">
+        Enter your home details
+      </h1>
+      <form action="/host/add-home" method="post" class="space-y-4">
+        <input type="text" name="homename" placeholder="Enter your Home name"
+               class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"/>
+        <input type="text" name="city" placeholder="Enter City"
+               class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"/>
+        <input type="number" name="price" placeholder="Enter amount per night"
+               class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"/>
+        <input type="number" name="rating" placeholder="Enter Rating"
+               class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"/>
+        <div class="text-right">
+          <input type="submit" value="Submit"
+                 class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 cursor-pointer"/>
+        </div>
+      </form>
+    </div>
+  </main>
+</body>
+</html>
