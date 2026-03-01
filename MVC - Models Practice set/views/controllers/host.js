@@ -1,7 +1,7 @@
 const home=require('../../models/home');
 
 exports.getAdd_home=(req,res,next)=>{
-  res.render('addHome',{pagetitle: 'Add Home'});
+  res.render('host/addHome',{pagetitle: 'Add Home'});
 };
 
 //const registeredHomes=[];
@@ -10,7 +10,7 @@ exports.postAdd_home=(req,res,next)=>{
   newhome.save();
   console.log("Home registered sucessfully",req.body);
   //registeredHomes.push(req.body);
-  res.render('homeAdded',{pagetitle: 'Home Added'});
+  res.render('host/homeAdded',{pagetitle: 'Home Added'});
   
 }
 //exports.registeredHomes=registeredHomes;
