@@ -1,0 +1,45 @@
+<%- include('../partials/head') %>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+  <%- include('../partials/nav') %>
+
+  <main class="max-w-4xl mx-auto py-12 px-4">
+    <div class="bg-white rounded-lg shadow p-6 flex flex-col md:flex-row gap-6">
+      <!-- Image -->
+      <div class="md:w-1/3">
+        <img
+          src="<%= home.imageurl %>"
+          alt="<%= home.homename %>"
+          class="w-full h-56 md:h-64 object-cover rounded"
+        />
+      </div>
+
+      <!-- Details -->
+      <div class="md:flex-1">
+        <h1 class="text-2xl font-semibold mb-2"><%= home.homename %></h1>
+
+        <p class="text-2xl text-green-600 font-bold mb-3">
+          $<%= home.price %>
+        </p>
+
+        <p class="text-gray-600 mb-2">
+          <strong>Location:</strong> <%= home.location %>
+        </p>
+
+        <p class="text-gray-600 mb-4">
+          <strong>Rating:</strong>
+          <span class="text-yellow-500">★</span> <%= home.rating %>
+        </p>
+
+        <!-- optional actions -->
+        <div class="flex gap-3 mt-4">
+          <a href="#" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Contact</a>
+          <a href="#" class="px-4 py-2 border rounded hover:bg-gray-50">Save</a>
+        </div>
+      </div>
+      <%- include('../partials/favourites') %>
+    </div>
+  </main>
+</body>
+</html>
