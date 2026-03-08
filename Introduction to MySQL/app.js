@@ -1,0 +1,27 @@
+const express=require('express');
+const bodyparser=require('body-parser');
+
+const {storeRouter}=require('./routes/storeRouter');
+const {hostRouter}=require('./routes/hostRouter');
+const db=require('./utils/database');
+
+
+
+const app=express();
+
+app.set('view engine','ejs');
+app.set('views','views');
+
+app.use(bodyparser.urlencoded());
+
+app.use(storeRouter);
+app.use(hostRouter);
+
+app.use((req,res,next)=>{
+  res.status(404).render('404',{pagetitle : "Page not found"});
+});
+
+const port=3000;
+app.listen(port,()=>{
+  console.log(`Server running at https://localhost:${port}`);
+})
