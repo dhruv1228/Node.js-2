@@ -1,0 +1,18 @@
+//core modules
+const express=require('express');
+const bodyparser=require('body-parser');
+
+//local modules
+const {loginroute}=require('./routes/login');
+
+const app=express();
+
+app.use(bodyparser.urlencoded());
+app.set('view engine','ejs');
+app.set('views','views');
+
+app.use(loginroute);
+
+app.listen(3000,()=>{
+  console.log("Server is running at port 3000");
+})
