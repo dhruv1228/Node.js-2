@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign up</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* small helper to smooth input focus ring */
+    .input-focus:focus { outline: none; box-shadow: 0 0 0 4px rgba(99,102,241,0.12); }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-sky-50 via-white to-rose-50 flex items-center justify-center p-6">
+  <main class="max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+    <!-- Left: Hero / Branding -->
+    <section class="hidden md:flex flex-col justify-center px-10">
+      <div class="mb-6">
+        <!-- simple logo -->
+        <div class="inline-flex items-center gap-3">
+          <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-indigo-600 to-pink-500 flex items-center justify-center text-white font-bold">OK</div>
+          <div>
+            <h1 class="text-2xl font-semibold text-slate-800">YourApp</h1>
+            <p class="text-sm text-slate-500">Secure sign up to continue</p>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="text-3xl font-extrabold text-slate-800 mb-4">Welcome</h2>
+      <p class="text-slate-500">Enter your details to create your account. We protect your data with industry best practices.</p>
+
+      <div class="mt-8 rounded-xl overflow-hidden shadow-lg">
+        <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=b7be3f4a0d6a6b5b9b5c0a0c7a1b6e6a" alt="security illustration" class="w-full h-56 object-cover"/>
+      </div>
+    </section>
+
+    <!-- Right: Form -->
+    <section class="bg-white/80 backdrop-blur rounded-2xl shadow-md p-8 md:p-10">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h3 class="text-xl font-semibold text-slate-800">Sign up for your account</h3>
+        </div>
+        <div class="text-sm text-slate-400">Already have an account? <a href="/login" class="text-indigo-600 hover:underline">Sign in</a></div>
+      </div>
+
+      <% if (typeof error !== 'undefined' && error) { %>
+      <div class="mb-4 rounded-md bg-red-50 border border-red-100 text-red-700 px-4 py-3">
+        <%= error %>
+      </div>
+      <% } %>
+
+      <% if (typeof success !== 'undefined' && success) { %>
+      <div class="mb-4 rounded-md bg-green-50 border border-green-100 text-green-700 px-4 py-3">
+        <%= success %>
+      </div>
+      <% } %>
+
+      <form action="/signup" method="POST" class="space-y-5" onsubmit="disableSubmit(this)">
+        <!-- optional CSRF token -->
+        <% if (typeof csrfToken !== 'undefined') { %>
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <% } %>
+
+        <div>
+          <label for="name" class="block text-sm font-medium text-slate-700 mb-1">Name</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12l-4-4-4 4m0 0l4 4 4-4M12 8v8"/></svg>
+            </span>
+            <input id="name" name="name" type="text" required autocomplete="name"
+              value="<%= typeof email !== 'undefined' ? email : '' %>"
+              class="input-focus block w-full pl-11 pr-3 py-3 rounded-lg border border-slate-200 bg-white text-slate-700 placeholder-slate-400 focus:ring-0" placeholder="name">
+          </div>
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm font-medium text-slate-700 mb-1">Email</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12l-4-4-4 4m0 0l4 4 4-4M12 8v8"/></svg>
+            </span>
+            <input id="email" name="email" type="email" required autocomplete="email"
+              value="<%= typeof email !== 'undefined' ? email : '' %>"
+              class="input-focus block w-full pl-11 pr-3 py-3 rounded-lg border border-slate-200 bg-white text-slate-700 placeholder-slate-400 focus:ring-0" placeholder="you@example.com">
+          </div>
+        </div>
+
+        <div>
+          <label for="Password" class="block text-sm font-medium text-slate-700 mb-1">Password</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c1.657 0 3-1.343 3-3S13.657 5 12 5s-3 1.343-3 3 1.343 3 3 3zM6 21v-2a6 6 0 016-6h0a6 6 0 016 6v2"/></svg>
+            </span>
+            <input id="Password" name="Password" type="password" required autocomplete="current-password"
+              class="input-focus block w-full pl-11 pr-14 py-3 rounded-lg border border-slate-200 bg-white text-slate-700 placeholder-slate-400 focus:ring-0" placeholder="••••••••">
+            <button type="button" id="togglePassword" aria-label="Show password" class="absolute right-2 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-700 px-3 py-1 rounded">
+              <svg id="eyeOpen" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5s8.268 2.943 9.542 7c-1.274 4.057-5.065 7-9.542 7s-8.268-2.943-9.542-7z"/></svg>
+              <svg id="eyeClosed" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.269-2.943-9.543-7a10.052 10.052 0 012.07-3.653M6.1 6.1A9.956 9.956 0 0112 5c4.478 0 8.269 2.943 9.543 7a9.967 9.967 0 01-2.04 3.583M3 3l18 18"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between text-sm">
+          <label class="inline-flex items-center gap-2 text-slate-600">
+            <input type="checkbox" name="remember" class="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500">
+            Remember me
+          </label>
+        </div>
+
+        <div>
+          <button id="submitBtn" type="submit" class="w-full inline-flex justify-center items-center gap-2 py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg shadow-sm focus:outline-none focus:ring-4 focus:ring-indigo-100">
+            Sign up
+            <svg id="btnSpinner" class="w-4 h-4 hidden animate-spin" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 00-8 8z"></path></svg>
+          </button>
+        </div>
+
+        <p class="text-center text-xs text-slate-400">By signing up you agree to our <a href="/terms" class="text-indigo-600 hover:underline">Terms</a> and <a href="/privacy" class="text-indigo-600 hover:underline">Privacy</a>.</p>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    // password toggle
+    const pwInput = document.getElementById('Password');
+    const toggle = document.getElementById('togglePassword');
+    const eyeOpen = document.getElementById('eyeOpen');
+    const eyeClosed = document.getElementById('eyeClosed');
+    toggle.addEventListener('click', () => {
+      const isPwd = pwInput.type === 'password';
+      pwInput.type = isPwd ? 'text' : 'password';
+      eyeOpen.classList.toggle('hidden');
+      eyeClosed.classList.toggle('hidden');
+      toggle.setAttribute('aria-label', isPwd ? 'Hide password' : 'Show password');
+    });
+
+    // disable submit button on form submit and show spinner
+    function disableSubmit(form) {
+      const btn = document.getElementById('submitBtn');
+      const spinner = document.getElementById('btnSpinner');
+      btn.setAttribute('disabled', 'disabled');
+      spinner.classList.remove('hidden');
+      return true;
+    }
+
+    // Optional: simple client-side email validation hint
+    document.getElementById('email').addEventListener('input', (e) => {
+      const val = e.target.value;
+      e.target.classList.toggle('border-red-200', val && !/^\S+@\S+\.\S+$/.test(val));
+    });
+  </script>
+</body>
+</html></label></button>
